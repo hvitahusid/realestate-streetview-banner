@@ -16,7 +16,8 @@ define 'RealestateStreetView', ['jquery', 'gmaps', 'isnet_to_wgs'], ($, gmaps, i
             return this
 
         geocode: (address, callback) ->
-            $.getJSON 'proxy.php', {'q': address}, (res) ~>
+            url = 'https://apache.hvitahusid.is/arion/realestate-streetview/proxy.php?callback=?'
+            $.getJSON url, {'q': address}, (res) ~>
                 if res['map'].meta.count is 0
                     console.log 'zero results'
                     return
