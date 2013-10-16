@@ -6,7 +6,7 @@ $file = './cache/'.$query.'.json';
 if(file_exists($file)) {
 	$out = file_get_contents($file);
 } else {
-	$out = file_get_contents('http://gamli.ja.is/kort/search_json/?q='.$query);
+	$out = file_get_contents('http://gamli.ja.is/kort/search_json/?q='.urlencode($query));
 	file_put_contents($file, $out);
 }
 
