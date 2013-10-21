@@ -1,9 +1,10 @@
-define 'RealestateStreetView', ['jquery', 'gmaps', 'isnet_to_wgs'], ($, gmaps, isnet_to_wgs) ->
+define 'RealestateStreetView', ['jquery', 'gmaps', 'isnet_to_wgs', 'THREE', 'GSVPano', 'hyperlapse'], ($, gmaps, isnet_to_wgs) ->
 
     class RealestateStreetView
         mouseHover: false
         movementInterval: null
         panorama: null
+        hyperlapse: null
 
         ->
             $('#pano').mouseenter ~>
@@ -11,13 +12,18 @@ define 'RealestateStreetView', ['jquery', 'gmaps', 'isnet_to_wgs'], ($, gmaps, i
             .mouseleave ~>
                 @mouseHover = false
 
-            @geocode decodeURIComponent(window.location.search.substr(1)), @renderPanorama
+            address = decodeURIComponent(window.location.search.substr(1))
+            @ja_geocode(address, @renderPanorama)
+
+            #@google_geocode address, (start) ~>
+            #    @ja_geocode address, (end) ~>
+            #        @renderHyperlapse(start, end)
 
             return this
 
-        geocode: (address, callback) ->
+        ja_geocode: (address, callback) ->
             url = 'https://apache.hvitahusid.is/arion/realestate-streetview/proxy.php?callback=?'
-            $.getJSON url, {'q': address}, (res) ~>
+            return $.getJSON url, {'q': address}, (res) ~>
                 if res['map'].meta.count is 0
                     console.log 'zero results'
                     return
@@ -25,12 +31,22 @@ define 'RealestateStreetView', ['jquery', 'gmaps', 'isnet_to_wgs'], ($, gmaps, i
                 wgs = isnet_to_wgs(c.x, c.y)
                 location = new gmaps.LatLng(wgs.lat, wgs.lng)
 
-                return callback.call(this, location)
+                if callback?
+                    return callback.call(this, location)
 
-            return this
+        google_geocode: (address, callback) ->
+            geocoder = new gmaps.Geocoder!
+
+            return geocoder.geocode {'address': address}, (results, status) ~>
+                if status !== gmaps.GeocoderStatus.OK
+                    console.log status
+                    return
+
+                if callback?
+                    return callback.call(this, results[0].geometry.location)
 
         getPanoramaLocation: (location, callback) ->
-            streetView = new gmaps.StreetViewService()
+            streetView = new gmaps.StreetViewService!
 
             streetView.getPanoramaByLocation location, 50, (result, status) ~>
                 if status is not 'OK'
@@ -45,13 +61,6 @@ define 'RealestateStreetView', ['jquery', 'gmaps', 'isnet_to_wgs'], ($, gmaps, i
             return gmaps.geometry.spherical.computeHeading(_from, _to)
 
         renderPanorama: (location) ->
-            /*
-            map = new gmaps.Map $('#map-canvas')[0], do
-                center: location
-                zoom: 14
-                mapTypeId: gmaps.MapTypeId.ROADMAP
-            */
-
             @getPanoramaLocation location, (pLocation) ->
                 @heading = @computeHeading(pLocation, location)
 
@@ -67,7 +76,43 @@ define 'RealestateStreetView', ['jquery', 'gmaps', 'isnet_to_wgs'], ($, gmaps, i
                     enableCloseButton: false
                 @init_movement()
 
-                #map.setStreetView(panorama)
+            return this
+
+        renderHyperlapse: (start_location, end_location) ->
+            @hyperlapse = new Hyperlapse $('#pano')[0], do
+                lookat: end_location
+                zoom: 1
+                use_lookat: true
+                elevation: 0
+                millis: 100
+                width: 310
+                height: 400
+                max_points: 400
+                distance_between_points: 0.2
+
+            @hyperlapse.onError = (e) ~>
+                console.log(e)
+
+            @hyperlapse.onRouteComplete = (e) ~>
+                @hyperlapse.load!
+
+            @hyperlapse.onLoadComplete = (e) ~>
+                @hyperlapse.play!
+
+            # Google Maps API stuff here...
+            directions_service = new gmaps.DirectionsService!
+
+            route =
+                request:
+                    origin: start_location
+                    destination: end_location
+                    travelMode: gmaps.DirectionsTravelMode.DRIVING
+
+            directions_service.route route.request, (res, status) ~>
+                if status === gmaps.DirectionsStatus.OK
+                    @hyperlapse.generate({route: res})
+                else
+                    console.log(status);
 
             return this
 
@@ -76,7 +121,7 @@ define 'RealestateStreetView', ['jquery', 'gmaps', 'isnet_to_wgs'], ($, gmaps, i
 
             @movementInterval = setInterval(~>
                 if not @mouseHover
-                    pov = @panorama.getPov()
+                    pov = @panorama.getPov!
                     pov.heading += 0.2
                     @panorama.setPov(pov)
             , 10)
