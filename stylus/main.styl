@@ -2,12 +2,100 @@
 
 global-reset()
 
-#map-canvas
-    display: inline-block
-    width: 310px
-    height: 400px
+banner_width = 310px
+banner_height = 400px
+
+overlay_color = #0062b0
+overlay_height = 90px
+
+orange = #ec7b18
+
+body
+    color: white
+    font-family: 'Zemestro-Book'
+    width: banner_width
+    height: banner_height
+
+#container
+    position: relative
+    width: 100%
+    height: 100%
 
 #pano
-    display: inline-block
-    width: 310px
-    height: 400px
+    width: 100%
+    height: 100%
+
+
+#overlay
+    position: absolute
+    bottom: 0
+    left: 0
+    width: 100%
+    height: overlay_height
+    background-color: overlay_color
+
+    .top-line
+        _height = 36px
+        border: 0px solid transparent
+        border-top-width: _height
+        border-right-color: overlay_color
+        border-right-width: banner_width
+        height: 0
+        width: 0
+        position: absolute
+        top: -(_height)
+
+line_width = 230px
+
+h1
+    _height = 26px
+    position: relative
+    padding: 10px 0 3px 0
+    display: block
+    overflow: hidden
+    width: line_width
+    height: _height
+    font-family: 'Zemestro'
+    font-size: 16px
+
+    .text
+        text-align: right
+        position: absolute
+        bottom: 3px
+        height: _height
+        line-height: _height
+        right: 3px
+        opacity: 0
+
+    .line
+        position: absolute
+        background-color: orange
+        width: line_width
+        height: 3px
+        bottom: 0px
+        left: 0px
+        margin-left: -(line_width)
+
+h2
+    _height = 26px
+    display: block
+    height: _height
+    width: 100%
+    position: relative
+    overflow: hidden
+
+    .text
+        height: _height
+        line-height: _height
+        position: absolute
+        top: 0
+        left: 20px
+        margin-top: -(_height)
+
+#logo
+    image: '../img/arion-logo.png' 120px 26px
+    width: 120px
+    height: 26px
+    position: absolute
+    bottom: 13px
+    right: 20px

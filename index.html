@@ -1,9 +1,14 @@
 <!doctype html>
 
 <head>
+    <meta charset="utf-8">
+
     <title>Realestate Streetview Banner</title>
 
+    <link rel="stylesheet" type="text/css" href="css/fonts.css">
     <link rel="stylesheet" type="text/css" href="stylus/main.css">
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.10.3/TweenMax.min.js"></script>
 
     <script data-main="ls/main" src="js/require.js"></script>
 </head>
@@ -11,5 +16,21 @@
 <body>
     <div id="container">
         <div id="pano"></div>
+
+        <div id="overlay">
+            <div class="top-line"></div>
+
+            <h1>
+                <div class="text text1">Er þetta framtíðarhverfið þitt?</div>
+                <div class="text text2">Skoðaðu málið frá öllum hliðum</div>
+                <div class="text text3">ÍBÚÐALAUSNIR</div>
+
+                <div class="line"></div>
+            </h1>
+
+            <h2><div class="text">Reiknaðu dæmið hér</div></h2>
+
+            <div id="logo"></div>
+        </div>
     </div>
 </body>
