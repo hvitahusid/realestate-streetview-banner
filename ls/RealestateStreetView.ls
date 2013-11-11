@@ -1,4 +1,4 @@
-define 'RealestateStreetView', ['jquery', 'gmaps', 'isnet_to_wgs', 'THREE', 'GSVPano', 'hyperlapse'], ($, gmaps, isnet_to_wgs) ->
+define 'RealestateStreetView', ['gmaps', 'isnet_to_wgs', 'THREE', 'GSVPano', 'hyperlapse'], (gmaps, isnet_to_wgs) ->
 
     class RealestateStreetView
         mouseHover: false
@@ -12,27 +12,39 @@ define 'RealestateStreetView', ['jquery', 'gmaps', 'isnet_to_wgs', 'THREE', 'GSV
             .mouseleave ~>
                 @mouseHover = false
 
-            address = decodeURIComponent(window.location.search.substr(1))
-            @ja_geocode(address, @renderPanorama)
-
-            #@google_geocode address, (start) ~>
-            #    @ja_geocode address, (end) ~>
-            #        @renderHyperlapse(start, end)
+            addr_override = decodeURIComponent(window.location.search.substr(1))
+            if addr_override
+                console.log 'Address url override. Using google geocoder...'
+                @google_geocode addr_override, @renderPanorama
+            else if _site is 'visir'
+                location = @visir_geocode!
+                if location
+                    @renderPanorama location
+                    console.log 'Location found in top.document, let\'s rock! ;D'
+                else
+                    console.log 'No location found in top.document.'
+                    address = $('.b-house-adress h2', top.document).text()
+                    if address
+                        console.log 'Found address. Using google geocoder...'
+                        @google_geocode address, @renderPanorama
+                    else
+                        console.log 'No address found. TODO: Create placeholder banner'
 
             return this
 
-        ja_geocode: (address, callback) ->
-            url = 'https://apache.hvitahusid.is/arion/realestate-streetview/proxy.php?callback=?'
-            return $.getJSON url, {'q': address}, (res) ~>
-                if res['map'].meta.count is 0
-                    console.log 'zero results'
-                    return
-                c = res['map'].items[0].coordinates
-                wgs = isnet_to_wgs(c.x, c.y)
-                location = new gmaps.LatLng(wgs.lat, wgs.lng)
-
-                if callback?
-                    return callback.call(this, location)
+        # Evaluate this code from top window:
+        # $(function() { initialize_estate(64.0604166666667,-21.9529666666667,16); });
+        # returns: [64.0604166666667, -21.9529666666667]
+        visir_geocode: ->
+            var location, $
+            initialize_estate = (lat, lng) ->
+                if lat? and lng?
+                    location := new gmaps.LatLng(lat, lng)
+                else
+                    location := null
+            $ = (cb) -> cb()
+            eval(jQuery('.google_map script', top.document).html())
+            return location
 
         google_geocode: (address, callback) ->
             geocoder = new gmaps.Geocoder!
