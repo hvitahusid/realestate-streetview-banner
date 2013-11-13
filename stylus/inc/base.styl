@@ -10,6 +10,92 @@ body
     overflow: hidden
     font-size: 16px
 
+@keyframes spin
+    from
+        transform: rotate(350deg)
+    to
+        transform: rotate(0deg)
+
+@keyframes bounce
+    0%
+        transform: translate(0, 0)
+    50%
+        transform: translate(0, -7px)
+    100%
+        transform: translate(0, 0)
+
+@keyframes grow
+    0%
+        transform: scale(1)
+    50%
+        transform: scale(1.2)
+    100%
+        transform: scale(1)
+
+#loader
+    absolute: top 0 left 0
+    width: 100%
+    height: 100%
+    background-color: white
+
+    h3
+        color: #b9b9b9
+        text-transform: uppercase
+        font-size: 12px
+        display: block
+        width: 100%
+        height: 38px
+        line-height: @height
+        text-align: center
+
+    .marker-wrapper
+        position: relative
+        margin-top: 187px
+        z-index: 1300
+        
+        .marker
+            position: relative
+            z-index: 1200
+            margin: 0 auto 0 auto
+            width: 48px; height: 68px
+            image: '../img/marker.png' @width @height
+            animation-iteration-count: infinite
+            animation-timing-function: swing
+            animation-duration: 2s
+            animation-name: 'bounce'
+
+            .loading
+                absolute: left 10px top 14px
+                width: 26px; height: 24px
+                image: '../img/loading.png' @width @height
+                animation-iteration-count: infinite
+                animation-timing-function: linear
+                animation-duration: 4s
+                animation-name: 'spin'
+                transform-origin: 14px 12px
+
+        .marker-shadow
+            position: relative
+            z-index: 1100
+            margin: -2px auto 0 auto
+            width: 33px; height: 8px
+            border-radius: (@width / 2) \/ (@height / 2)
+            background-color: #b2b2b2
+            box-shadow: 0 0 2px 1px #b2b2b2
+            animation-iteration-count: infinite
+            animation-timing-function: swing
+            animation-duration: 2s
+            animation-name: 'grow'
+
+    .address
+        width: 100%
+        height: 24px
+        line-height: 2
+        text-align: center
+        font-size: 15px
+        text-transform: uppercase
+        color: #181818
+
 #container
     position: relative
     width: 100%
@@ -18,7 +104,6 @@ body
 #pano
     width: 100%
     height: 100%
-
 
 #overlay
     position: absolute
@@ -30,15 +115,14 @@ body
     cursor: pointer
 
     .top-line
-        _height = 36px
         border: 0px solid transparent
-        border-top-width: _height
+        border-top-width: top_line
         border-right-color: overlay_color
         border-right-width: banner_width
         height: 0
         width: 0
         position: absolute
-        top: -(_height)
+        top: -(top_line)
 
 h1
     _height = 26px
@@ -82,9 +166,8 @@ h2
         left: 18px
 
 #logo
-    image: '../img/arion-logo.png' 120px 26px
-    width: 120px
-    height: 26px
+    width: 120px; height: 26px
+    image: '../img/arion-logo.png' @width @height
     position: absolute
     bottom: 13px
     right: 20px

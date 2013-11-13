@@ -38,6 +38,26 @@
     <div id="container">
         <div id="pano"></div>
 
+        <div id="loader">
+            <h3>HLEÐUR</h3>
+
+            <div class="marker-wrapper">
+                <div class="marker">
+                    <div class="loading"></div>
+                </div>
+                <div class="marker-shadow"></div>
+            </div>
+
+            <div class="address"></div>
+            <script>
+                // top window jQuery will have loaded before iframe jQuery
+                var address = top.jQuery('.b-house-adress h2').text();
+                if(address) {
+                    top.jQuery('#loader .address', document).text(address.split(',')[0]);
+                }
+            </script>
+        </div>
+
         <div id="overlay">
             <div class="top-line"></div>
 
@@ -49,7 +69,7 @@
                 <div class="line"></div>
             </h1>
 
-            <h2><div class="text">Reiknaðu<br>dæmið hér</div></h2>
+            <h2><div class="text">Reiknaðu dæmið &rang;</div></h2>
 
             <div id="logo"></div>
         </div>
@@ -67,8 +87,7 @@
 
     <script>
         var html_banner = new HtmlBanner({
-            href: 'https://www.arionbanki.is/einstaklingar/lan/ibudalan/',
-            // TODO: add #um_lanin hash to url
+            href: 'https://www.arionbanki.is/einstaklingar/lan/ibudalan/#um_lanin',
             utm: false, // Setting manual utm params
             params: {
                 utm_source: 'visir_fasteign',

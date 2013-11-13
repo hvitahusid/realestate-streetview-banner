@@ -1,4 +1,4 @@
-define 'RealestateStreetView', ['gmaps', 'isnet_to_wgs', 'THREE', 'GSVPano', 'hyperlapse'], (gmaps, isnet_to_wgs) ->
+define 'RealestateStreetView', ['gmaps'], (gmaps) ->
 
     class RealestateStreetView
         mouseHover: false
@@ -7,23 +7,20 @@ define 'RealestateStreetView', ['gmaps', 'isnet_to_wgs', 'THREE', 'GSVPano', 'hy
         hyperlapse: null
 
         ->
-            $('#pano').mouseenter ~>
-                @mouseHover = true
-            .mouseleave ~>
-                @mouseHover = false
+            $('#pano').mouseenter(~> @mouseHover = true).mouseleave(~> @mouseHover = false)
 
             addr_override = decodeURIComponent(window.location.search.substr(1))
             if addr_override
                 console.log 'Address url override. Using google geocoder...'
                 @google_geocode addr_override, @renderPanorama
             else if _site is 'visir'
+                address = $('.b-house-adress h2', top.document).text()
                 location = @visir_geocode!
                 if location
                     @renderPanorama location
                     console.log 'Location found in top.document, let\'s rock! ;D'
                 else
                     console.log 'No location found in top.document.'
-                    address = $('.b-house-adress h2', top.document).text()
                     if address
                         console.log 'Found address. Using google geocoder...'
                         @google_geocode address, @renderPanorama
@@ -87,6 +84,9 @@ define 'RealestateStreetView', ['gmaps', 'isnet_to_wgs', 'THREE', 'GSVPano', 'hy
                     zoomControl: false
                     enableCloseButton: false
                 @init_movement()
+                setTimeout ->
+                    $('#loader').fadeOut(200)
+                , 2000
 
             return this
 

@@ -1,11 +1,11 @@
 require.config do
     baseUrl: ''
     paths:
-        THREE: 'js/lib/three'
-        GSVPano: 'js/lib/GSVPano'
-        hyperlapse: 'js/lib/Hyperlapse'
+        #THREE: 'js/lib/three'
+        #GSVPano: 'js/lib/GSVPano'
+        #hyperlapse: 'js/lib/Hyperlapse'
         async: 'js/lib/plugins/async'
-        isnet_to_wgs: 'js/lib/isnet93-to-wgs84'
+        #isnet_to_wgs: 'js/lib/isnet93-to-wgs84'
         RealestateStreetView: 'ls/RealestateStreetView'
 
 define('gmaps', ['async!http://maps.google.com/maps/api/js?v=3&sensor=false'], -> window.google.maps)
