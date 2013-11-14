@@ -1,6 +1,6 @@
-(->
-    window.app = new RealestateStreetView()
+window.app = new RealestateStreetView()
 
+$ ->
     lineWidth = $('h1 .line').width();
     overlayHeight = $('#overlay').height();
 
@@ -41,6 +41,3 @@
         .to($('#overlay'), 0.5, {height: overlayHeight, delay: 5}, 'text3out')
         .to($('h1 .text3'), 0.5, {marginBottom: $('h1 .text3').outerHeight() * -1, delay: 5}, 'text3out')
         .to($('h1 .line'), 0.5, {marginLeft: -(lineWidth)})
-
-    console.log timeline
-)()
