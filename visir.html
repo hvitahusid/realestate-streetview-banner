@@ -17,11 +17,6 @@
 
     <script src="js/lib/modernizr-2.6.2.min.js"></script>
 
-    <script>
-        var _site = 'visir';
-        var _line_margin = 12;
-    </script>
-
     <script src="js/lib/plugins.js"></script>
     <script src="js/lib/json3.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
@@ -30,6 +25,14 @@
     <script src="js/lib/html-banner.js"></script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.10.3/TweenMax.min.js"></script>
+
+    <script>
+        var _site = 'visir';
+        var _line_margin = 12;
+
+        var AB = randomChar(2);
+        console.log('AB testing: ' + AB);
+    </script>
 
     <script data-main="ls/main" src="js/require.js"></script>
 </head>
@@ -80,12 +83,20 @@
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-XXXX-Y');
-        ga('send', 'pageview');
     </script>
 
     <script>
+        HtmlBanner.prototype.onClick = function(el) {
+            var ref = this.get_referer();
+            var ref_str = [ref.attr('host'), ref.attr('path')].join('');
+
+            if(typeof ga !== 'undefined') {
+                ga('send', 'event', ref_str, 'click_' + AB);
+            }
+
+            window.open(this.get_href(), '_blank').focus();
+        };
+
         var html_banner = new HtmlBanner({
             href: 'https://www.arionbanki.is/einstaklingar/lan/ibudalan/#um_lanin',
             utm: false, // Setting manual utm params
@@ -96,6 +107,17 @@
                 utm_campaign: 'streetview'
             },
             click_element: '#overlay'
+        });
+    </script>
+
+    <script>
+        var ga_page = '/' + html_banner.get_referer().attr('host') + '/realestate-streetview/' + AB;
+        console.log('pageview', ga_page);
+
+        ga('create', 'UA-35718314-17');
+        ga('send', 'ga pageview', {
+            'page': ga_page,
+            'title': 'Vísir - Realestate Streetview Banner ' + AB
         });
     </script>
 </body>

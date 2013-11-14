@@ -1,0 +1,8 @@
+http://www.arionbanki.is/library/Skrar/Template/Font/regular.eot
+http://www.arionbanki.is/library/Skrar/Template/Font/regular.woff
+http://www.arionbanki.is/library/Skrar/Template/Font/regular.ttf
+http://www.arionbanki.is/library/Skrar/Template/Font/regular.svg
+http://www.arionbanki.is/library/Skrar/Template/Font/book.eot
+http://www.arionbanki.is/library/Skrar/Template/Font/book.woff
+http://www.arionbanki.is/library/Skrar/Template/Font/book.ttf
+http://www.arionbanki.is/library/Skrar/Template/Font/book.svg

@@ -10,7 +10,6 @@ require.config do
 
 define('gmaps', ['async!http://maps.google.com/maps/api/js?v=3&sensor=false'], -> window.google.maps)
 
-
 require ['RealestateStreetView'], (RealestateStreetView) ->
     window.app = new RealestateStreetView()
 

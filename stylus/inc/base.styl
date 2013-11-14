@@ -98,15 +98,19 @@ body
 
 #container
     position: relative
+    z-index: 100
     width: 100%
     height: 100%
 
 #pano
+    absolute: top 0 left 0
+    z-index: 0
     width: 100%
     height: 100%
 
 #overlay
     position: absolute
+    z-index: 999999999
     bottom: 0
     left: 0
     width: 100%
@@ -124,46 +128,48 @@ body
         position: absolute
         top: -(top_line)
 
-h1
-    _height = 26px
-    position: relative
-    padding: 10px 0 3px 0
-    display: block
-    overflow: hidden
-    width: line_width
-    font-family: 'Zemestro'
-    text-align: right
-
-    .text
-        text-align: left
-        position: absolute
-        bottom: 3px
-        line-height: _height
-        right: 3px
-        opacity: 0
-
-    .line
-        position: absolute
-        background-color: orange
+    h1
+        _height = 26px
+        position: relative
+        padding: 10px 0 3px 0
+        display: block
+        overflow: hidden
         width: line_width
-        height: 3px
-        bottom: 0px
-        left: 0px
-        margin-left: -(line_width)
+        font-family: 'Zemestro'
+        text-align: right
+        white-space:nowrap;
 
-h2
-    _height = 26px
-    display: block
-    width: 100%
-    position: relative
-    overflow: hidden
+        .text
+            text-align: left
+            position: absolute
+            bottom: 3px
+            line-height: _height
+            right: 3px
+            opacity: 0
 
-    .text
-        line-height: _height
-        text-align: left
-        position: absolute
-        top: 0
-        left: 18px
+        .line
+            position: absolute
+            background-color: orange
+            width: line_width
+            height: 3px
+            bottom: 0px
+            left: 0px
+            margin-left: -(line_width)
+
+    h2
+        _height = 26px
+        display: block
+        width: 100%
+        position: relative
+        overflow: hidden
+        white-space:nowrap;
+
+        .text
+            line-height: _height
+            text-align: left
+            position: absolute
+            top: 0
+            left: 18px
 
 #logo
     width: 120px; height: 26px

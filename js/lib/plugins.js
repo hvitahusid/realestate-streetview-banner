@@ -20,3 +20,5 @@
         }
     }
 }());
+
+function randomChar(n){return String.fromCharCode(Math.floor((Math.random()*n))+65);}
