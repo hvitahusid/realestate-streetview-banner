@@ -105,9 +105,6 @@ body {
   height: 100%;
   background-color: #fff;
 }
-.lt-ie9 #loader {
-  display: none;
-}
 #loader h3 {
   color: #b9b9b9;
   text-transform: uppercase;
@@ -275,7 +272,7 @@ body {
   position: absolute;
   top: -16px;
 }
-#overlay h1 {
+h1 {
   position: relative;
   padding: 10px 0 3px 0;
   display: block;
@@ -285,7 +282,7 @@ body {
   text-align: right;
   white-space: nowrap;
 }
-#overlay h1 .text {
+h1 .text {
   text-align: left;
   position: absolute;
   bottom: 3px;
@@ -295,7 +292,7 @@ body {
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   filter: alpha(opacity=0);
 }
-#overlay h1 .line {
+h1 .line {
   position: absolute;
   background-color: #ec7b18;
   width: 150px;
@@ -304,14 +301,14 @@ body {
   left: 0px;
   margin-left: -150px;
 }
-#overlay h2 {
+h2 {
   display: block;
   width: 100%;
   position: relative;
   overflow: hidden;
   white-space: nowrap;
 }
-#overlay h2 .text {
+h2 .text {
   line-height: 26px;
   text-align: left;
   position: absolute;

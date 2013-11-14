@@ -1,16 +1,4 @@
-require.config do
-    baseUrl: ''
-    paths:
-        #THREE: 'js/lib/three'
-        #GSVPano: 'js/lib/GSVPano'
-        #hyperlapse: 'js/lib/Hyperlapse'
-        async: 'js/lib/plugins/async'
-        #isnet_to_wgs: 'js/lib/isnet93-to-wgs84'
-        RealestateStreetView: 'ls/RealestateStreetView'
-
-define('gmaps', ['async!http://maps.google.com/maps/api/js?v=3&sensor=false'], -> window.google.maps)
-
-require ['RealestateStreetView'], (RealestateStreetView) ->
+(->
     window.app = new RealestateStreetView()
 
     lineWidth = $('h1 .line').width();
@@ -53,3 +41,6 @@ require ['RealestateStreetView'], (RealestateStreetView) ->
         .to($('#overlay'), 0.5, {height: overlayHeight, delay: 5}, 'text3out')
         .to($('h1 .text3'), 0.5, {marginBottom: $('h1 .text3').outerHeight() * -1, delay: 5}, 'text3out')
         .to($('h1 .line'), 0.5, {marginLeft: -(lineWidth)})
+
+    console.log timeline
+)()
