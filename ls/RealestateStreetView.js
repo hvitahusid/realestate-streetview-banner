@@ -19,13 +19,13 @@ RealestateStreetView = (function(){
       console.log('Address url override. Using google geocoder...');
       this.google_geocode(addr_override, this.renderPanorama);
     } else if (_site === 'visir') {
-      /*
-      if AB?
-          if AB is 'A'
-              $('#overlay h2 .text').html('Reiknaðu dæmið &rang;');
-          else if AB is 'B'
-              $('#overlay h2 .text').html('Fáðu ráðgjöf &rang;');
-      */
+      if (typeof AB != 'undefined' && AB !== null) {
+        if (AB === 'A') {
+          $('#overlay h2 .text').html('Reiknaðu dæmið &rang;');
+        } else if (AB === 'B') {
+          $('#overlay h2 .text').html('Fáðu ráðgjöf &rang;');
+        }
+      }
       address = $('.b-house-adress h2', top.document).text();
       location = this.visir_geocode();
       if (location) {

@@ -12,13 +12,11 @@ class RealestateStreetView
             console.log 'Address url override. Using google geocoder...'
             @google_geocode addr_override, @renderPanorama
         else if _site is 'visir'
-            /*
             if AB?
                 if AB is 'A'
                     $('#overlay h2 .text').html('Reiknaðu dæmið &rang;');
                 else if AB is 'B'
-                    $('#overlay h2 .text').html('Fáðu ráðgjöf &rang;');
-            */
+                    $('#overlay h2 .text').html('Fáðu ráðgjöf &nbsp;&rang;');
 
             address = $('.b-house-adress h2', top.document).text()
             location = @visir_geocode!

@@ -105,6 +105,9 @@ body {
   height: 100%;
   background-color: #fff;
 }
+.lt-ie9 #loader {
+  display: none;
+}
 #loader h3 {
   color: #b9b9b9;
   text-transform: uppercase;
@@ -247,10 +250,10 @@ body {
 #pano {
   position: absolute;
   top: 0;
-  left: 0;
+  left: -146.5px;
   z-index: 0;
-  width: 100%;
-  height: 100%;
+  width: 443px;
+  height: 443px;
 }
 #overlay {
   position: absolute;
@@ -272,7 +275,7 @@ body {
   position: absolute;
   top: -16px;
 }
-h1 {
+#overlay h1 {
   position: relative;
   padding: 10px 0 3px 0;
   display: block;
@@ -282,7 +285,7 @@ h1 {
   text-align: right;
   white-space: nowrap;
 }
-h1 .text {
+#overlay h1 .text {
   text-align: left;
   position: absolute;
   bottom: 3px;
@@ -292,7 +295,7 @@ h1 .text {
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   filter: alpha(opacity=0);
 }
-h1 .line {
+#overlay h1 .line {
   position: absolute;
   background-color: #ec7b18;
   width: 150px;
@@ -301,14 +304,14 @@ h1 .line {
   left: 0px;
   margin-left: -150px;
 }
-h2 {
+#overlay h2 {
   display: block;
   width: 100%;
   position: relative;
   overflow: hidden;
   white-space: nowrap;
 }
-h2 .text {
+#overlay h2 .text {
   line-height: 26px;
   text-align: left;
   position: absolute;

@@ -1,6 +1,6 @@
-window.app = new RealestateStreetView()
+$(window).load ->
+    window.app = new RealestateStreetView()
 
-$ ->
     lineWidth = $('h1 .line').width();
     overlayHeight = $('#overlay').height();
 
