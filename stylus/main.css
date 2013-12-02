@@ -250,10 +250,10 @@ body {
 #pano {
   position: absolute;
   top: 0;
-  left: 0px;
+  left: -18px;
   z-index: 0;
-  width: 310px;
-  height: 310px;
+  width: 346px;
+  height: 346px;
 }
 #overlay {
   position: absolute;

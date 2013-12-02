@@ -29,7 +29,7 @@ class RealestateStreetView
                     console.log 'Found address. Using google geocoder...'
                     @google_geocode address, @renderPanorama
                 else
-                    console.log 'No address found. TODO: Create placeholder banner'
+                    console.log 'No address found. Using placeholder'
 
         return this
 

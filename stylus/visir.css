@@ -669,6 +669,9 @@ body {
     transform: scale(1);
   }
 }
+#container.placeholder {
+  background-image: url("../img/placeholder.jpg");
+}
 #overlay h1 .text,
 #overlay h2 .text {
   line-height: 20px;

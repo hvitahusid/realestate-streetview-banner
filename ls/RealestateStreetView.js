@@ -23,7 +23,7 @@ RealestateStreetView = (function(){
         if (AB === 'A') {
           $('#overlay h2 .text').html('Reiknaðu dæmið &rang;');
         } else if (AB === 'B') {
-          $('#overlay h2 .text').html('Fáðu ráðgjöf &rang;');
+          $('#overlay h2 .text').html('Fáðu ráðgjöf &nbsp;&rang;');
         }
       }
       address = $('.b-house-adress h2', top.document).text();
@@ -37,7 +37,7 @@ RealestateStreetView = (function(){
           console.log('Found address. Using google geocoder...');
           this.google_geocode(address, this.renderPanorama);
         } else {
-          console.log('No address found. TODO: Create placeholder banner');
+          console.log('No address found. Using placeholder');
         }
       }
     }
