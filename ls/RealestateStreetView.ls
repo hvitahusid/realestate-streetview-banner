@@ -30,8 +30,24 @@ class RealestateStreetView
                     @google_geocode address, @renderPanorama
                 else
                     console.log 'No address found. Using placeholder'
+        else if _site is 'mbl'
+            rdata = top.realestate_data()
+            @ja_geocode rdata.address, @render360
 
         return this
+
+    ja_geocode: (address, callback) ->
+        self = this
+        $.ajax do
+            url: 'https://apache.hvitahusid.is/arion/realestate-streetview/proxy.php'
+            jsonp: 'callback'
+            dataType: 'jsonp'
+            data: {q: decodeURIComponent(address)}
+            success: (data) ->
+                if callback?
+                    callback.call(self, data)
+                else
+                    console.log data
 
     # Evaluate this code from top window:
     # $(function() { initialize_estate(64.0604166666667,-21.9529666666667,16); });
@@ -44,7 +60,7 @@ class RealestateStreetView
             else
                 location := null
         $ = (cb) -> cb()
-        eval(jQuery('.google_map script', top.document).html())
+        jQuery('.google_map script', top.document).html() |> eval
         return location
 
     google_geocode: (address, callback) ->
@@ -72,6 +88,35 @@ class RealestateStreetView
 
     computeHeading: (_from, _to) ->
         return google.maps.geometry.spherical.computeHeading(_from, _to)
+
+    build360url: (data) ->
+        'http://ja.is/kort/?' + $.param do
+            q: data.address
+            x: data.x
+            y: data.y
+            z: 10
+            type: 'map'
+            ja360: 1
+            jh: 'auto'
+
+    render360: (data) ->
+        $iframe = $ '<iframe>', do
+            src: @build360url(data)
+            width: '100%'
+            height: '100%'
+            scrolling: 'no'
+            frameborder: 0
+            marginwidth: 0
+            marginheight: 0
+        .css do
+            width: '100%'
+            height: '100%'
+
+        $('#pano').html($iframe)
+
+        setTimeout ->
+            $('#loader').fadeOut(200)
+        , 2000
 
     renderPanorama: (location) ->
         @getPanoramaLocation location, (pLocation) ->

@@ -8,7 +8,7 @@ RealestateStreetView = (function(){
   prototype.panorama = null;
   prototype.hyperlapse = null;
   function RealestateStreetView(){
-    var addr_override, address, location, this$ = this;
+    var addr_override, address, location, rdata, this$ = this;
     $('#pano').mouseenter(function(){
       return this$.mouseHover = true;
     }).mouseleave(function(){
@@ -40,9 +40,31 @@ RealestateStreetView = (function(){
           console.log('No address found. Using placeholder');
         }
       }
+    } else if (_site === 'mbl') {
+      rdata = top.realestate_data();
+      this.ja_geocode(rdata.address, this.render360);
     }
     return this;
   }
+  prototype.ja_geocode = function(address, callback){
+    var self;
+    self = this;
+    return $.ajax({
+      url: 'https://apache.hvitahusid.is/arion/realestate-streetview/proxy.php',
+      jsonp: 'callback',
+      dataType: 'jsonp',
+      data: {
+        q: decodeURIComponent(address)
+      },
+      success: function(data){
+        if (callback != null) {
+          return callback.call(self, data);
+        } else {
+          return console.log(data);
+        }
+      }
+    });
+  };
   prototype.visir_geocode = function(){
     var location, $, initialize_estate;
     initialize_estate = function(lat, lng){
@@ -55,7 +77,8 @@ RealestateStreetView = (function(){
     $ = function(cb){
       return cb();
     };
-    eval(jQuery('.google_map script', top.document).html());
+    eval(
+    jQuery('.google_map script', top.document).html());
     return location;
   };
   prototype.google_geocode = function(address, callback){
@@ -87,6 +110,36 @@ RealestateStreetView = (function(){
   };
   prototype.computeHeading = function(_from, _to){
     return google.maps.geometry.spherical.computeHeading(_from, _to);
+  };
+  prototype.build360url = function(data){
+    return 'http://ja.is/kort/?' + $.param({
+      q: data.address,
+      x: data.x,
+      y: data.y,
+      z: 10,
+      type: 'map',
+      ja360: 1,
+      jh: 'auto'
+    });
+  };
+  prototype.render360 = function(data){
+    var $iframe;
+    $iframe = $('<iframe>', {
+      src: this.build360url(data),
+      width: '100%',
+      height: '100%',
+      scrolling: 'no',
+      frameborder: 0,
+      marginwidth: 0,
+      marginheight: 0
+    }).css({
+      width: '100%',
+      height: '100%'
+    });
+    $('#pano').html($iframe);
+    return setTimeout(function(){
+      return $('#loader').fadeOut(200);
+    }, 2000);
   };
   prototype.renderPanorama = function(location){
     this.getPanoramaLocation(location, function(pLocation){
