@@ -30,7 +30,7 @@ class RealestateStreetView
                     @google_geocode address, @renderPanorama
                 else
                     console.log 'No address found. Using placeholder'
-        else if _site is 'mbl'
+        else if _site is 'mbl' and top.realestate_data?
             rdata = top.realestate_data()
             @ja_geocode rdata.address, @render360
 
