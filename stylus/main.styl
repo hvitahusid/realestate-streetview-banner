@@ -2,14 +2,30 @@
 
 banner_width = 310px
 banner_height = 400px
+//line_width = 240px
 
 @import 'inc/base'
 
+#loader
+    .marker-wrapper
+        margin-top: 90px
+
 #pano
-    _size = (banner_height - overlay_height + top_line)
     position: absolute
     top: 0
     left: 0
     z-index: 0
     width: banner_width
-    height: _size
+    height: 310px
+
+#overlay
+    letter-spacing: 1px
+    -webkit-font-smoothing: antialiased
+    h1
+        .text
+            right: 0
+
+    h2
+        letter-spacing: 1px
+        .text
+            left: 12px

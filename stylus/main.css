@@ -669,11 +669,27 @@ body {
     transform: scale(1);
   }
 }
+#loader .marker-wrapper {
+  margin-top: 90px;
+}
 #pano {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 0;
   width: 310px;
-  height: 346px;
+  height: 310px;
+}
+#overlay {
+  letter-spacing: 1px;
+  -webkit-font-smoothing: antialiased;
+}
+#overlay h1 .text {
+  right: 0;
+}
+#overlay h2 {
+  letter-spacing: 1px;
+}
+#overlay h2 .text {
+  left: 12px;
 }

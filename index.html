@@ -72,4 +72,14 @@
             <div id="logo"></div>
         </div>
     </div>
+
+    <script>
+        // top window jQuery will have loaded before iframe jQuery
+        var address = top.jQuery('.realestate-headline-address strong').text();
+        if(address) {
+            top.jQuery('#loader .address', document).text(address.split(',')[0]);
+        } else {
+            top.jQuery('#container', document).html('').addClass('placeholder')
+        }
+    </script>
 </body>

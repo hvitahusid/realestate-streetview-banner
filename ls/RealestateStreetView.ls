@@ -90,14 +90,10 @@ class RealestateStreetView
         return google.maps.geometry.spherical.computeHeading(_from, _to)
 
     build360url: (data) ->
-        'http://ja.is/kort/?' + $.param do
-            q: data.address
+        'http://ja.is/kort/360_iframe/?' + $.param do
             x: data.x
             y: data.y
-            z: 10
-            type: 'map'
-            ja360: 1
-            jh: 'auto'
+            autorotate: 1
 
     render360: (data) ->
         $iframe = $ '<iframe>', do

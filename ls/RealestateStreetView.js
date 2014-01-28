@@ -112,14 +112,10 @@ RealestateStreetView = (function(){
     return google.maps.geometry.spherical.computeHeading(_from, _to);
   };
   prototype.build360url = function(data){
-    return 'http://ja.is/kort/?' + $.param({
-      q: data.address,
+    return 'http://ja.is/kort/360_iframe/?' + $.param({
       x: data.x,
       y: data.y,
-      z: 10,
-      type: 'map',
-      ja360: 1,
-      jh: 'auto'
+      autorotate: 1
     });
   };
   prototype.render360 = function(data){
