@@ -75,9 +75,8 @@
 
     <script>
         // top window jQuery will have loaded before iframe jQuery
-        var address = top.jQuery('.realestate-headline-address strong').text();
-        if(address) {
-            top.jQuery('#loader .address', document).text(address.split(',')[0]);
+        if(top.realestate_data !== undefined && top.realestate_data().address != null) {
+            top.jQuery('#loader .address', document).text(top.realestate_data().address);
         } else {
             top.jQuery('#container', document).html('').addClass('placeholder')
         }
