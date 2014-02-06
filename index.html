@@ -25,8 +25,6 @@
     <script src="js/lib/html-banner.js"></script>
     <script src="js/lib/TweenMax.min.js"></script>
 
-    <script src="//maps.google.com/maps/api/js?v=3&sensor=false"></script>
-
     <script>
         var _site = 'mbl';
         var _line_margin = 12;
@@ -80,5 +78,47 @@
         } else {
             top.jQuery('#container', document).html('').addClass('placeholder')
         }
+    </script>
+
+        <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    </script>
+
+    <script>
+        HtmlBanner.prototype.onClick = function(el) {
+            var ref = this.get_referer();
+            var ref_str = [ref.attr('host'), ref.attr('path')].join('');
+
+            if(typeof ga !== 'undefined') {
+                ga('send', 'event', ref_str, 'click_' + AB);
+            }
+
+            window.open(this.get_href(), '_blank').focus();
+        };
+
+        var html_banner = new HtmlBanner({
+            href: 'https://www.arionbanki.is/einstaklingar/lan/ibudalan/#um_lanin',
+            utm: false, // Setting manual utm params
+            params: {
+                utm_source: 'mbl_fasteign',
+                utm_medium: 'banner',
+                utm_content: '150x600',
+                utm_campaign: 'streetview'
+            },
+            click_element: '#overlay'
+        });
+    </script>
+
+    <script>
+        var ga_page = '/' + html_banner.get_referer().attr('host') + '/realestate-streetview/' + AB;
+
+        ga('create', 'UA-35718314-17');
+        ga('send', 'ga pageview', {
+            'page': ga_page,
+            'title': 'MBL - ja.is 350° ' + AB
+        });
     </script>
 </body>
